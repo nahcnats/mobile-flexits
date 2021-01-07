@@ -1,9 +1,10 @@
 import React from 'react';
 import { Text, View, StyleSheet, Platform, Button } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
-import CustomHeaderButton from '../components/UI/CustomHeaderButton';
+import HeaderMenuButton from '../components/UI/HeaderMenuButton';
+import HeaderLogoutButton from '../components/UI/HeaderLogoutButton';
+
 
 import Colors from '../constants/Colors';
 
@@ -23,13 +24,10 @@ export const settingsScreenOptions = navData => {
   return {
     headerTitle: 'Settings',
     headerLeft: () => (
-      <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
-        <Item
-          title='Menu'
-          iconName={Platform.OS === 'android' ? 'md-menu' : 'ios-menu'}
-          onPress={() => {navData.navigation.toggleDrawer()}}
-        />
-      </HeaderButtons>
+      <HeaderMenuButton onToggleMenu={() => { navData.navigation.toggleDrawer() }} />
+    ),
+    headerRight: () => (
+      <HeaderLogoutButton />
     ),
   }
 }
