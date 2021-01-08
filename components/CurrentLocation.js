@@ -4,13 +4,33 @@ import { Text, View, StyleSheet } from 'react-native';
 import Card from '../components/UI/Card';
 import MapButton from '../components/UI/MapButton';
 
+const CurrentCoords = () => {
+  return (
+    <View style={styles.coordsContainer}>
+      <View style={styles.coords}>
+        <Text style={styles.label}>Longitude</Text>
+        <Text>VALUE</Text>
+      </View>
+      <View style={styles.coords}>
+        <Text style={styles.label}>Latitude</Text>
+        <Text>VALUE</Text>
+      </View>
+    </View>
+  )
+}
+
 const CurrentAddress = () => {
   return (
+    <View>
+      <CurrentCoords />
+      <View>
+        <Text style={styles.label}>Your current location is: </Text>
+      </View>
     <View style={styles.addressContainer}>
       <Text style={styles.text}>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe minus commodi veniam at, in sint rem enim labore est nobis!</Text>
       <MapButton />
     </View>
-    
+    </View>
   );
 }
 
@@ -29,9 +49,6 @@ const PrevClockingInfo = () => {
 const CurrentLocation = props => {
   return (
     <Card style={styles.locationContainer}>
-      <View>
-        <Text style={styles.label}>Your current location is: </Text>
-      </View>
       <View>
         <CurrentAddress />
       </View>
@@ -61,6 +78,14 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: 'open-sans',
+  },
+  coordsContainer: {
+    paddingBottom: 10
+  },
+  coords: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingBottom: 5
   },
   addressContainer: {
     maxWidth: '90%',

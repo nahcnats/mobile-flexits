@@ -6,6 +6,7 @@ import ClockingButtons from '../components/UI/ClockingButtons';
 import HeaderMenuButton from '../components/UI/HeaderMenuButton';
 import HeaderLogoutButton from '../components/UI/HeaderLogoutButton';
 import CurrentLocation from '../components/CurrentLocation';
+import Greeting from '../components/Greeting';
 
 const ClockingScreen = props => {
   useFocusEffect(() => {
@@ -13,11 +14,14 @@ const ClockingScreen = props => {
   }, [props.navigation]);
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <CurrentLocation style={styles.currentLocation} />
-      {/* <Button title='Reason' onPress={ () => props.navigation.navigate('Reason') }/> */}
-      <ClockingButtons prevIndicator={1} />
-    </ScrollView>
+    <View style={styles.container}>
+      <Greeting />
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <CurrentLocation style={styles.currentLocation} />
+        {/* <Button title='Reason' onPress={ () => props.navigation.navigate('Reason') }/> */}
+        <ClockingButtons prevIndicator={1} />
+      </ScrollView>
+    </View>
   );
 }
 
@@ -38,9 +42,12 @@ export const clockingScreenOptions = navData => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white'
+  },
+  scrollContainer: {
+    flex: 1,
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    backgroundColor: 'white'
   },
 });
 
