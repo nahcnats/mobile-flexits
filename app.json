@@ -27,6 +27,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "A hobby project I rewrite the original app I developed for Transact2 Sdn. Bhd. in 2019 named Transact2 ClockIT which is available in both Google Play and Apple Store. This project source code is under my public GIT repository at https://github.com/nahcnats."
   }
 }

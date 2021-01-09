@@ -23,11 +23,11 @@ const ClockingButtons = props => {
   );
 }
 
-const bigButtonSize = 180;
-const smallButtonSize = 100;
+const bigButtonSize = 140;
+const smallButtonSize = 80;
 
 const styles = StyleSheet.create({
-  container: {
+  container: {  
     justifyContent: 'center',
     alignItems: 'center'
   },

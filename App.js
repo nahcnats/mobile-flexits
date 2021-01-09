@@ -7,12 +7,24 @@ import * as Font from 'expo-font';
 
 import AppNavigation from './navigation/AppNavigation';
 
+// Import redux reducers
+import locationReducer from './store/reducers/location';
+
 const fetchFonts = () => {
   return Font.loadAsync({
     'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
     'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf')
   });
 }
+
+const rootReducer = combineReducers({
+  location: locationReducer,
+});
+
+const store = createStore(
+  rootReducer,
+  applyMiddleware(ReduxThunk)
+);
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -27,6 +39,8 @@ export default function App() {
   }
 
   return (
-    <AppNavigation />
+    <Provider store={store}>
+      <AppNavigation />
+    </Provider>
   );
 }
