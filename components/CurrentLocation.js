@@ -24,6 +24,7 @@ const CurrentLocation = props => {
 
   const CurrentCoords = () => {
     return (
+      locationCoords ?
       <View style={styles.coordsContainer}>
         <View style={styles.coords}>
           <Text style={styles.label}>Longitude</Text>
@@ -34,6 +35,7 @@ const CurrentLocation = props => {
           <Text style={styles.text}>{locationCoords.coords.latitude}</Text>
         </View>
       </View>
+      : null
     )
   }
 
@@ -75,8 +77,8 @@ const CurrentLocation = props => {
   return (
     <Card style={styles.locationContainer}>
       <View>
-        {locationCoords ? <CurrentCoords /> : null}
-        <CurrentAddress />
+        { locationCoords ? <CurrentCoords /> : null }
+        { locationCoords ? <CurrentAddress /> : null }
       </View>
       <View>
         <PrevClockingInfo />

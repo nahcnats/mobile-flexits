@@ -3,7 +3,7 @@ import { View, StyleSheet, ScrollView, Alert } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import ClockingButtons from '../components/UI/ClockingButtons';
 import HeaderMenuButton from '../components/UI/HeaderMenuButton';
@@ -16,8 +16,6 @@ import * as locationActions from '../store/actions/location';
 
 const ClockingScreen = props => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isFetching, setIsFetching] = useState(false);
-  const [locationCoords, setLocationCoords] = useState({});
 
   const dispatch = useDispatch();
   
@@ -87,6 +85,7 @@ const ClockingScreen = props => {
     <View style={styles.container}>
       <Greeting />
       <ScrollView contentContainerStyle={styles.scrollContainer}>
+        { }
         <CurrentLocation style={styles.currentLocation} navigation={props.navigation} />
         {/* <Button title='Reason' onPress={ () => props.navigation.navigate('Reason') }/> */}
         <ClockingButtons prevIndicator={1} />
