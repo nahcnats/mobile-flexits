@@ -1,10 +1,13 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
 
 const Greeting = props => {
+  const userFullName = useSelector(state => state.auth.fullname);
+
   return (
     <View style={styles.container}>
-        <Text>Hello, Stanley</Text>
+      <Text>Hello, { userFullName }</Text>
     </View>
   );
 }

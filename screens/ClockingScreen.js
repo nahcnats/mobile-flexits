@@ -16,6 +16,7 @@ import * as locationActions from '../store/actions/location';
 
 const ClockingScreen = props => {
   const [isLoading, setIsLoading] = useState(false);
+  const isLocation = useSelector(state => !!state.location.location);
 
   const dispatch = useDispatch();
   
@@ -59,7 +60,6 @@ const ClockingScreen = props => {
   }
 
   const getLocationHandler = useCallback(async () => {
-    console.log('getLocationHandler')
     const hasPermission = await verifyPermissions();
 
     if (!hasPermission) {
@@ -85,9 +85,11 @@ const ClockingScreen = props => {
     <View style={styles.container}>
       <Greeting />
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        { }
-        <CurrentLocation style={styles.currentLocation} navigation={props.navigation} />
-        {/* <Button title='Reason' onPress={ () => props.navigation.navigate('Reason') }/> */}
+        {/* {
+          isLocation ?
+            <CurrentLocation style={styles.currentLocation} navigation={props.navigation} />
+          : null
+        } */}
         <ClockingButtons prevIndicator={1} />
       </ScrollView>
     </View>

@@ -1,6 +1,8 @@
 import React, { useReducer, useEffect } from 'react';
 import { Text, View, TextInput, StyleSheet, } from 'react-native';
 
+export const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
+
 const INPUT_CHANGE = 'INPUT_CHANGE';
 const INPUT_BLUR = 'INPUT_BLUR';
 
@@ -93,11 +95,11 @@ const styles = StyleSheet.create({
   },
   label: {
     fontFamily: 'open-sans-bold',
-    marginVertical: 8
+    marginVertical: 5
   },
   input: {
     paddingHorizontal: 2,
-    paddingVertical: 5,
+    paddingVertical: 2,
     borderBottomColor: '#ccc',
     borderBottomWidth: 1
   },

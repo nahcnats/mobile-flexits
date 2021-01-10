@@ -5,10 +5,12 @@ import { Provider } from 'react-redux';
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
 
-import AppNavigation from './navigation/AppNavigation';
-
 // Import redux reducers
 import locationReducer from './store/reducers/location';
+import authReducer from './store/reducers/auth';
+
+// Import navigation
+import AppNavigation from './navigation/AppNavigation';
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -18,6 +20,7 @@ const fetchFonts = () => {
 }
 
 const rootReducer = combineReducers({
+  auth: authReducer,
   location: locationReducer,
 });
 

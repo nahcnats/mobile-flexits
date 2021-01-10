@@ -16,7 +16,7 @@ const CurrentLocation = props => {
       longitude: locationCoords.coords.longitude,
     });
 
-    let formatedAddress = `${response[0].name}, ${response[0].street}, ${response[0].district}, ${response[0].postalCode}, `;
+    let formatedAddress = `${response[0].name}, ${response[0].postalCode}, ${response[0].district},`;
     formatedAddress += `${response[0].city}, ${response[0].region}, ${response[0].country}`;
 
     setAddress(formatedAddress);

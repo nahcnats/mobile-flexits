@@ -1,5 +1,5 @@
-import React from 'react';
-import { Platform, Text, View } from 'react-native';
+import React, { useEffect, useCallback } from 'react';
+import { Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -11,16 +11,20 @@ import {
 } from '@react-navigation/drawer';
 import { Ionicons } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Colors from '../constants/Colors';
 import IconSize from '../constants/IconSize';
 
 import AuthScreen from '../screens/AuthScreen';
+import ForgotPasswordScreen, { forgotPasswordScreenOptions } from '../screens/ForgotPasswordScreen';
 import ClockingScreen, { clockingScreenOptions } from '../screens/ClockingScreen';
 import ReasonScreen, { reasonScreenOptions } from '../screens/ReasonScreen';
 import AttendanceScreen, { attendanceScreenOptions } from '../screens/AttendanceScreen';
 import ChangePasswordScreen, { changePasswordScreenOptions } from '../screens/ChangePasswordScreen';
 import SettingsScreen, { settingsScreenOptions } from '../screens/SettingsScreen';
+
+import * as authActions from '../store/actions/auth';
 
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -37,6 +41,26 @@ const defaultNavOptions = {
     fontFamily: 'open-sans'
   },
   headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primary
+}
+
+const AuthNavigator = () => {
+  return (
+    <Stack.Navigator
+      initialRouteName='Auth'
+      screenOptions={defaultNavOptions}
+    >
+      <Stack.Screen
+        name='Auth'
+        component={AuthScreen}
+        options={{headerShown:false}}
+      />
+      <Stack.Screen
+        name='ForgotPassword'
+        component={ForgotPasswordScreen}
+        options={forgotPasswordScreenOptions}
+      />
+    </Stack.Navigator>
+  )
 }
 
 const ClockingNavigator = () => {
@@ -174,10 +198,43 @@ const AppNavigator = () => {
 }
 
 const AppNavigation = () => {
+  const isAuth = useSelector(state => !!state.auth.token);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    tryLogin();
+
+    return () => {
+      // unmount
+    }
+  }, [tryLogin]);
+
+  const tryLogin = useCallback(async () => {
+    const userData = await AsyncStorage.getItem('userData');
+
+    if (!userData) {
+      return;
+    }
+
+    // AsyncStorate values are string. Convert to JSON
+    const transformedData = JSON.parse(userData);
+    const { token, userId, fullname, expiryDate } = transformedData;
+    const expirationDate = new Date(expiryDate);
+
+    if (expirationDate <= new Date() || !token || !userId) {
+      dispatch(authActions.logout());
+      return;
+    }
+
+    const expirationTime = expirationDate.getTime() - new Date().getTime();
+    dispatch(authActions.authenticate(userId, fullname, token, expirationTime));
+  }, [isAuth]);
+
   return (
     <NavigationContainer>
-      <AppNavigator />
+      { isAuth ? <AppNavigator /> : <AuthNavigator /> }
     </NavigationContainer>
   );
 }
+
 export default AppNavigation;
