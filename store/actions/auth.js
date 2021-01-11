@@ -61,7 +61,6 @@ export const login = (userId, password) => {
 
       saveDataToStorage(response.data.accessToken, decoded.username, decoded.fullname, expirationDate);
     } catch (err) {
-      console.log(err)
       throw new Error(err.response.data.errors);
     }
   }

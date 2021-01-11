@@ -8,6 +8,7 @@ import MapButton from '../components/UI/MapButton';
 
 const CurrentLocation = props => {
   const [address, setAddress] = useState();
+  const isLocation = useSelector(state => !!state.location.location);
   const locationCoords = useSelector(state => state.location.location);
 
   const getAddress = async () => {
@@ -16,7 +17,9 @@ const CurrentLocation = props => {
       longitude: locationCoords.coords.longitude,
     });
 
-    let formatedAddress = `${response[0].name}, ${response[0].postalCode}, ${response[0].district},`;
+    let district = response[0].district ? `{response[0].district},` : '';
+
+    let formatedAddress = `${response[0].name}, ${response[0].street}, ${district} ${response[0].postalCode} `;
     formatedAddress += `${response[0].city}, ${response[0].region}, ${response[0].country}`;
 
     setAddress(formatedAddress);
@@ -24,7 +27,7 @@ const CurrentLocation = props => {
 
   const CurrentCoords = () => {
     return (
-      locationCoords ?
+      isLocation ?
       <View style={styles.coordsContainer}>
         <View style={styles.coords}>
           <Text style={styles.label}>Longitude</Text>
@@ -77,8 +80,8 @@ const CurrentLocation = props => {
   return (
     <Card style={styles.locationContainer}>
       <View>
-        { locationCoords ? <CurrentCoords /> : null }
-        { locationCoords ? <CurrentAddress /> : null }
+        <CurrentCoords />
+        <CurrentAddress />
       </View>
       <View>
         <PrevClockingInfo />

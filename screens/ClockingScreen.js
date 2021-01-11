@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import { View, StyleSheet, ScrollView, Alert } from 'react-native';
+import { View, StyleSheet, ScrollView, Alert, Text } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
@@ -16,7 +16,7 @@ import * as locationActions from '../store/actions/location';
 
 const ClockingScreen = props => {
   const [isLoading, setIsLoading] = useState(false);
-  const isLocation = useSelector(state => !!state.location.location);
+  const [isLocation, setIsLocation] = useState(false);
 
   const dispatch = useDispatch();
   
@@ -60,6 +60,7 @@ const ClockingScreen = props => {
   }
 
   const getLocationHandler = useCallback(async () => {
+    console.log('getLocationHandler');
     const hasPermission = await verifyPermissions();
 
     if (!hasPermission) {
@@ -71,6 +72,7 @@ const ClockingScreen = props => {
 
       dispatch(locationActions.setLocation(location));
 
+      setIsLocation(true);
     } catch (err) {
       Alert.alert(
         'Could not fetch location!',
@@ -79,17 +81,20 @@ const ClockingScreen = props => {
       );
     }
     
+    return () => {
+      // Clean up
+    }
   }, [getLocationHandler, dispatch]); 
 
   return (
     <View style={styles.container}>
       <Greeting />
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {/* {
+        {
           isLocation ?
             <CurrentLocation style={styles.currentLocation} navigation={props.navigation} />
           : null
-        } */}
+        }
         <ClockingButtons prevIndicator={1} />
       </ScrollView>
     </View>

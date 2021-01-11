@@ -7,10 +7,8 @@ const initialState = {
 }
 
 const authReducer = (state = initialState, action) => {
-  console.log(action.type)
   switch (action.type) {
     case AUTHENTICATE: {
-      console.log('this..')
       return {
         ...state,
         userId: action.userId,
@@ -22,7 +20,6 @@ const authReducer = (state = initialState, action) => {
       return initialState;
     }
     default: {
-      console.log("action.type", action.type, 'default')
       return state;
     }    
   }

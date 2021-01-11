@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
-import { Platform } from 'react-native';
+import { Platform, View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -8,6 +8,7 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
   DrawerItem,
+  useIsDrawerOpen,
 } from '@react-navigation/drawer';
 import { Ionicons } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -170,13 +171,33 @@ const HomeNavigator = () => {
   );
 }
 
-const AppNavigator = () => {
+const CustomDrawerContent = (props) => {
+  const dispatch = useDispatch();
+
+  return (
+    <View style={{ flex: 1 }} >
+      <DrawerContentScrollView {...props} >
+        <DrawerItemList {...props} />
+          <DrawerItem
+            label='Logout'
+            onPress={() => {
+              props.navigation.toggleDrawer();
+              dispatch(authActions.logout());
+            }}
+          />
+      </DrawerContentScrollView>
+    </View>
+  );
+}
+
+const AppNavigator = (props) => {
   return (
     <Drawer.Navigator
       initialRouteName='Home'
       drawerContentOptions={{
         activeTintColor: Colors.primary
       }}
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
       <Drawer.Screen
         name='Home'
