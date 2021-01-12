@@ -22,8 +22,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as authActions from '../store/actions/auth';
 
 import Card from '../components/UI/Card';
+import LoaderInline from '../components/UI/LoaderInline';
 import Input, { FORM_INPUT_UPDATE } from '../components/UI/Input';
-import Loader from '../components/UI/Loading';
 import formReducer from '../components/util/formReducer';
 
 import Colors from '../constants/Colors';
@@ -100,12 +100,11 @@ const AuthScreen = props => {
         formState.inputValues.userId,
         formState.inputValues.password)
       );
-
     } catch (err) {
       console.log(err);
       setError(err.message);
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }
 
   return (
@@ -147,7 +146,7 @@ const AuthScreen = props => {
               }} />
             </View>
             <View style={styles.buttonContainer}>
-              { isLoading ? <ActivityIndicator size='small' color={Colors.primary} /> : null } 
+              { isLoading ? <LoaderInline label='Authorization' /> : null } 
             </View>
           </ScrollView>
         </Card>

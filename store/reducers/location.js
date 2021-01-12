@@ -4,7 +4,7 @@ const initialState = {
   location: {},
 };
 
-export default (state = initialState, action) => {
+const locationReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_LOCATION:
       return {
@@ -15,3 +15,5 @@ export default (state = initialState, action) => {
       return state;
   }
 }
+
+export default locationReducer;

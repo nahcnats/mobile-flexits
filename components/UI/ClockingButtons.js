@@ -4,7 +4,7 @@ import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 const ClockingButtons = props => {
   return (
     <View style={styles.container}>
-      <View style={styles.titleContainer}><Text style={styles.label}>Please select your clocking action</Text></View>
+      <View style={styles.titleContainer}><Text style={styles.label}>Select your intended clocking action</Text></View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={props.prevIndicator == 1 ? styles.inBtnBig : styles.outBtnBig}

@@ -1,5 +1,5 @@
 const vars = {
-  googleApiKey: ''
+  googleApiKey: '',
   serverUrl: 'https://flexits.stanleychan.tk/api'
 }
 
