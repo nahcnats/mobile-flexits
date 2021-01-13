@@ -15,7 +15,7 @@ const LoaderModal = ({ loading, label }) => {
     >
       <View style={styles.loaderBackground}>
         <View style={styles.activityIndicatorWrapper}>
-          <Text style={styles.loaderText}>Loading { label }. Please wait...</Text>
+          <Text style={styles.loaderText}>{ label }</Text>
           <ActivityIndicator color={Colors.primary} size='large' animating={loading} />
         </View>
       </View>

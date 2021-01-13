@@ -11,7 +11,6 @@ import {
   KeyboardAvoidingView,
   ImageBackground,
   StyleSheet,
-  ActivityIndicator,
   Button,
   Alert,
   Platform
@@ -22,7 +21,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as authActions from '../store/actions/auth';
 
 import Card from '../components/UI/Card';
-import LoaderInline from '../components/UI/LoaderInline';
+import Loader from '../components/UI/Loader';
 import Input, { FORM_INPUT_UPDATE } from '../components/UI/Input';
 import formReducer from '../components/util/formReducer';
 
@@ -146,7 +145,7 @@ const AuthScreen = props => {
               }} />
             </View>
             <View style={styles.buttonContainer}>
-              { isLoading ? <LoaderInline label='Authorization' /> : null } 
+              { isLoading ? <Loader loading={isLoading} size='small' label='Authorizing...' /> : null } 
             </View>
           </ScrollView>
         </Card>

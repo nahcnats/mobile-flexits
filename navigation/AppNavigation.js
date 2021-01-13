@@ -67,6 +67,7 @@ const AuthNavigator = () => {
 const ClockingNavigator = () => {
   return (
     <Stack.Navigator
+      initialRouteName='Clocking'
       screenOptions={defaultNavOptions}
     >
       <Stack.Screen
@@ -128,7 +129,7 @@ const AttendanceNavigator = () => {
 const HomeNavigator = () => {
   return (
     <BottomTab.Navigator
-      initialRouteName='Clocking'
+      initialRouteName='ClockingTab'
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {
           let iconName;

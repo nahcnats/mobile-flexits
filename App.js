@@ -8,7 +8,7 @@ import * as Font from 'expo-font';
 // Import redux reducers
 import locationReducer from './store/reducers/location';
 import authReducer from './store/reducers/auth';
-import lastClockingReducer from './store/reducers/lastclocking';
+import clockingReducer from './store/reducers/clocking';
 
 // Import navigation
 import AppNavigation from './navigation/AppNavigation';
@@ -23,7 +23,7 @@ const fetchFonts = () => {
 const rootReducer = combineReducers({
   auth: authReducer,
   location: locationReducer,
-  lastClocking: lastClockingReducer,
+  clocking: clockingReducer,
 });
 
 const store = createStore(

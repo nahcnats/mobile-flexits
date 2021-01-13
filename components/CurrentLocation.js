@@ -1,34 +1,43 @@
 import React, { useState } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import * as Location from 'expo-location';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
-import Card from '../components/UI/Card';
 import MapButton from '../components/UI/MapButton';
+
+// Import redux action
+import * as locationActions from '../store/actions/location';
 
 const CurrentLocation = props => {
   const [address, setAddress] = useState();
   const locationCoords = useSelector(state => state.location.location);
 
+  const dispatch = useDispatch();
+
   const getAddress = async () => {
-    const response = await Location.reverseGeocodeAsync({
-      latitude: locationCoords.coords.latitude,
-      longitude: locationCoords.coords.longitude,
-    });
+    try {
+      const response = await Location.reverseGeocodeAsync({
+        latitude: locationCoords.coords.latitude,
+        longitude: locationCoords.coords.longitude,
+      });
 
-    let district = response[0].district ? `{response[0].district},` : '';
+      let district = response[0].district ? `{response[0].district},` : '';
 
-    let formatedAddress = `${response[0].name}, ${response[0].street}, ${district} ${response[0].postalCode} `;
-    formatedAddress += `${response[0].city}, ${response[0].region}, ${response[0].country}`;
+      let formatedAddress = `${response[0].name}, ${response[0].street}, ${district} ${response[0].postalCode} `;
+      formatedAddress += `${response[0].city}, ${response[0].region}, ${response[0].country}`;
 
-    setAddress(formatedAddress);
+      setAddress(formatedAddress);
+      dispatch(locationActions.setAddress(formatedAddress)); 
+    } catch (err) {
+      throw err;
+    }
   }
 
   const CurrentAddress = () => {
     getAddress();
 
     return (
-      <View>
+      <View style={styles.locationContainer}>
         <View>
           <Text style={styles.label}>Your current location address is: </Text>
         </View>
@@ -54,10 +63,7 @@ const CurrentLocation = props => {
 
 const styles = StyleSheet.create({
   locationContainer: {
-    width: '90%',
-    maxHeight: 400,
-    paddingVertical: 20,
-    paddingHorizontal: 20
+    paddingTop: 10
   },
   label: {
     fontFamily: 'open-sans-bold',

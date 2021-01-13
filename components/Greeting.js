@@ -7,15 +7,18 @@ const Greeting = props => {
 
   return (
     <View style={styles.container}>
-      <Text>Hello, { userFullName }</Text>
+      <Text style={styles.text}>Hello, {userFullName}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 10,
-    paddingHorizontal: 20
+    paddingVertical: 15,
+    paddingHorizontal: 15
+  },
+  text: {
+    fontFamily: 'open-sans'
   }
 });
 
