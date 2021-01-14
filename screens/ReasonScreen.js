@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Text, View, StyleSheet, FlatList, TouchableOpacity, Button, Platform } from 'react-native';
-import CheckBox from '@react-native-community/checkbox'
+// import CheckBox from '@react-native-community/checkbox'
+import { Checkbox } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 
@@ -52,17 +53,16 @@ const ReasonScreen = props => {
     return (
       <View>
         <View style={styles.itemContainer}>
-          <View>
+          {/* <View>
             <Text>{ label }</Text>
-          </View>
-          <View>
-            <CheckBox
-              value={selected.code == code ? true : false}
-              tintColors={{ true: Colors.primary }}
-              onCheckColor={Colors.primary }
-              onValueChange={() => {setSelected({ code: code, label: label, type: type })}}
+          </View> */}
+          <Checkbox.Item
+              status={selected.code == code ? 'checked' : 'unchecked'}
+              color={Colors.primary}
+              label={label}
+              style={{ width: 350}}
+              onPress={() => {setSelected({ code: code, label: label, type: type })}}
             />
-          </View>
         </View>
       </View>
     );
@@ -161,8 +161,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 10,
-    width: 300
+    paddingHorizontal: 20,
+    maxWidth: 500
   },
   actionContainer: {
     paddingBottom: 10

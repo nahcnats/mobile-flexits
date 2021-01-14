@@ -108,8 +108,8 @@ const AuthScreen = props => {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? padding : null}
-      keyboardVerticalOffset={20}
+      behavior='height'
+      keyboardVerticalOffset={0}
       style={styles.container}
     >
       <ImageBackground source={require('../assets/images/login-background.jpg')} style={styles.authBackground} >
