@@ -6,9 +6,11 @@ import axios from 'axios';
 
 import LoaderModal from '../components/UI/LoaderModal';
 import Loader from '../components/UI/Loader';
+import HeaderCustomBackButton from '../components/UI/HeaderCustomBackButton';
 
 import Colors from '../constants/Colors';
 import ENV from '../env';
+
 
 const ReasonScreen = props => {
   const { clockingType } = props.route.params;
@@ -27,16 +29,17 @@ const ReasonScreen = props => {
       console.log('ReasonScreen focused');
       fetchReasonsHandler();
     });
-
+    
     return unsubcribe;
   }, [props.navigation]);
 
   const fetchReasonsHandler = useCallback(async () => {
     setIsLoading(true);
-    try {
-      
-      const response = await axios.get(`${ENV.serverUrl}/reasons/type/${clockingType}`);
 
+    try {
+      console.log(clockingType)
+      const response = await axios.get(`${ENV.serverUrl}/reasons/type/${clockingType}`);
+      console.log(response.data.rec)
       setReasons(response.data.rec);
       setIsLoading(false);
     } catch (err) {
@@ -70,8 +73,8 @@ const ReasonScreen = props => {
 
     setTimeout(() => {
       setIsSaving(false);
-      props.navigation.navigate('AttendanceTab');
-     }, 3000);
+      props.navigation.navigate('HomeStack', { screen: 'AttendanceTab' });
+     }, 1000);
 
     // try {
     //   const payload = {
@@ -135,6 +138,9 @@ const ReasonScreen = props => {
 export const reasonScreenOptions = navData => {
   return {
     headerTitle: 'Clocking Reason',
+    headerLeft: () => (
+      <HeaderCustomBackButton onGoBack={() => navData.navigation.navigate('HomeStack')} />
+    ),
   }
 }
 

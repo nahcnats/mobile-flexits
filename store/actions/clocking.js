@@ -1,6 +1,10 @@
+// Import libraries
 import axios from 'axios';
 
+// Import ENV
 import ENV from '../../env';
+
+// Import models
 import Clocking from '../../models/clocking';
 
 export const SET_CLOCKING = 'SET_CLOCKING';

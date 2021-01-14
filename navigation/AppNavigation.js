@@ -1,3 +1,4 @@
+// Import libraries
 import React, { useEffect, useCallback } from 'react';
 import { Platform, View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -8,15 +9,16 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
   DrawerItem,
-  useIsDrawerOpen,
 } from '@react-navigation/drawer';
 import { Ionicons } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+// Import constants
 import Colors from '../constants/Colors';
 import IconSize from '../constants/IconSize';
 
+// Import screens
 import AuthScreen from '../screens/AuthScreen';
 import ForgotPasswordScreen, { forgotPasswordScreenOptions } from '../screens/ForgotPasswordScreen';
 import ClockingScreen, { clockingScreenOptions } from '../screens/ClockingScreen';
@@ -25,12 +27,14 @@ import AttendanceScreen, { attendanceScreenOptions } from '../screens/Attendance
 import ChangePasswordScreen, { changePasswordScreenOptions } from '../screens/ChangePasswordScreen';
 import SettingsScreen, { settingsScreenOptions } from '../screens/SettingsScreen';
 
+// Import redux actions
 import * as authActions from '../store/actions/auth';
 
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
+// Default header styles for all screens
 const defaultNavOptions = {
   headerStyle: {
     backgroundColor: Platform.OS === 'android' ? Colors.primary : ''
@@ -44,6 +48,7 @@ const defaultNavOptions = {
   headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primary
 }
 
+// AuthNavigator as stack
 const AuthNavigator = () => {
   return (
     <Stack.Navigator
@@ -64,6 +69,7 @@ const AuthNavigator = () => {
   )
 }
 
+// ClockingNavigator as stack
 const ClockingNavigator = () => {
   return (
     <Stack.Navigator
@@ -75,6 +81,16 @@ const ClockingNavigator = () => {
         component={ClockingScreen}
         options={clockingScreenOptions}
       />
+    </Stack.Navigator>
+  )
+}
+
+// ReasonNavigator as stack
+const ReasonNavigator = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={defaultNavOptions}
+    >
       <Stack.Screen
         name='Reason'
         component={ReasonScreen}
@@ -84,6 +100,7 @@ const ClockingNavigator = () => {
   )
 }
 
+// ChangePasswordNavigator as stack
 const ChangePasswordNavigator = () => {
   return (
     <Stack.Navigator
@@ -98,6 +115,7 @@ const ChangePasswordNavigator = () => {
   )
 }
 
+// SettingsNavigator as stack
 const SettingsNavigator = () => {
   return (
     <Stack.Navigator
@@ -112,6 +130,7 @@ const SettingsNavigator = () => {
   )
 }
 
+// AttendanceNavigator as stack
 const AttendanceNavigator = () => {
   return (
     <Stack.Navigator
@@ -126,6 +145,7 @@ const AttendanceNavigator = () => {
   )
 }
 
+// HomeNavigator as bottom tab
 const HomeNavigator = () => {
   return (
     <BottomTab.Navigator
@@ -161,28 +181,29 @@ const HomeNavigator = () => {
       <BottomTab.Screen
         name='ClockingTab'
         component={ClockingNavigator}
-        options={{tabBarLabel: 'Clocking'}}
+        options={{tabBarLabel: 'Clocking', unmountOnBlur: true}}
       />
       <BottomTab.Screen
         name='AttendanceTab'
         component={AttendanceNavigator}
-        options={{tabBarLabel: 'Attendance'}}
+        options={{tabBarLabel: 'Attendance', unmountOnBlur: true}}
       />
     </BottomTab.Navigator>
   );
 }
 
-const CustomDrawerContent = (props) => {
+// Customer drawer to add logout in menu
+const CustomDrawerContent = (filteredProps) => {
   const dispatch = useDispatch();
 
   return (
     <View style={{ flex: 1 }} >
-      <DrawerContentScrollView {...props} >
-        <DrawerItemList {...props} />
+      <DrawerContentScrollView {...filteredProps} >
+        <DrawerItemList {...filteredProps} />
           <DrawerItem
             label='Logout'
             onPress={() => {
-              props.navigation.toggleDrawer();
+              filteredProps.navigation.toggleDrawer();
               dispatch(authActions.logout());
             }}
           />
@@ -191,40 +212,70 @@ const CustomDrawerContent = (props) => {
   );
 }
 
-const AppNavigator = (props) => {
+// AppNavigator as drawer
+const AppNavigator = () => {
   return (
     <Drawer.Navigator
-      initialRouteName='Home'
+      initialRouteName='HomeStack'
       drawerContentOptions={{
         activeTintColor: Colors.primary
       }}
-      drawerContent={(props) => <CustomDrawerContent {...props} />}
+      drawerContent={(props) => {
+        // Hide item from menu
+        const filteredProps = {
+          ...props,
+          state: {
+            ...props.state,
+            routeNames: props.state.routeNames.filter(
+              routeName => routeName.name !== 'ReasonStack'
+            ),
+            routes: props.state.routes.filter(
+              route => route.name !== 'ReasonStack'
+            ),
+          }
+        };
+        return (
+          <CustomDrawerContent {...filteredProps} />
+        );
+      }}
     >
       <Drawer.Screen
-        name='Home'
+        name='HomeStack'
         component={HomeNavigator}
-        options={{ drawerLabel: 'Home'}}
+        options={{
+          drawerLabel: 'Home',
+        }}
       />
       <Drawer.Screen
-        name='ChangePassword'
+        name='ChangePasswordStack'
         component={ChangePasswordNavigator}
         options={{ drawerLabel: 'Change Password'}}
       />
       <Drawer.Screen
-        name='Settings'
+        name='SettingsStack'
         component={SettingsNavigator}
         options={{ drawerLabel: 'Settings'}}
+      />
+      <Drawer.Screen
+        name='ReasonStack'
+        component={ReasonNavigator}
+        options={{
+          drawerLabel: 'Reason',
+          unmountOnBlur:true
+        }}
       />
     </Drawer.Navigator>
   );
 }
 
+// Main navigation
 const AppNavigation = () => {
   const isAuth = useSelector(state => !!state.auth.token);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    tryLogin();
+    // try to login again if token exists and not expired
+    tryLogin(); 
 
     return () => {
       // unmount

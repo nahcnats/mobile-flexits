@@ -17,7 +17,6 @@ import Greeting from '../components/Greeting';
 
 // Import redux actions
 import * as locationActions from '../store/actions/location';
-import * as clockingActions from '../store/actions/clocking';
 
 import ENV from '../env';
 
@@ -49,8 +48,9 @@ const ClockingScreen = props => {
 
       if (response.status == 200) {
         setLastClockingData({ cType: response.data.rec[0].ctype, cDatetime: response.data.rec[0].cdatetime })
-        setIsLoading(false);
       }
+      
+      setIsLoading(false);
     } catch (err) {
       setIsLoading(false);
       console.log(err);
@@ -112,7 +112,10 @@ const ClockingScreen = props => {
   }
 
   const clockingButtonHandler = (clockingTypeValue) => {
-    props.navigation.navigate('Reason', {clockingType: clockingTypeValue});
+    props.navigation.navigate('ReasonStack', {
+      screen: 'Reason',
+      params: {clockingType: clockingTypeValue}
+    });
   }
 
   return (
