@@ -54,7 +54,11 @@ const ClockingScreen = props => {
       setIsLoading(false);
     } catch (err) {
       setIsLoading(false);
-      console.log(err);
+      Alert.alert(
+        'Error!',
+        `An error occured while fetching data. ${err.message}`,
+        [{ text: 'OK' }]
+      );
     }
     
   }, [getLastClockingHandler, lastClockingData]);

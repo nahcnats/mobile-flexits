@@ -1,8 +1,15 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Text, View, StyleSheet, FlatList, TouchableOpacity, Button, Platform } from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  FlatList,
+  Alert,
+  Button
+} from 'react-native';
 // import CheckBox from '@react-native-community/checkbox'
 import { Checkbox } from 'react-native-paper';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 import LoaderModal from '../components/UI/LoaderModal';
@@ -22,8 +29,6 @@ const ReasonScreen = props => {
   const location = useSelector(state => state.location.location);
   const address = useSelector(state => state.location.address);
   const token = useSelector(state => state.auth.token);
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const unsubcribe = props.navigation.addListener('focus', () => {
@@ -53,9 +58,6 @@ const ReasonScreen = props => {
     return (
       <View>
         <View style={styles.itemContainer}>
-          {/* <View>
-            <Text>{ label }</Text>
-          </View> */}
           <Checkbox.Item
               status={selected.code == code ? 'checked' : 'unchecked'}
               color={Colors.primary}
@@ -73,7 +75,11 @@ const ReasonScreen = props => {
 
     setTimeout(() => {
       setIsSaving(false);
-      props.navigation.navigate('HomeStack', { screen: 'AttendanceTab' });
+      Alert.alert('Info',
+        'Record saved successfully',
+        { text: 'OK', onPress: () => props.navigation.navigate('HomeStack', { screen: 'AttendanceTab' }) },
+        { cancelable: false }
+      );
      }, 1000);
 
     // try {
@@ -91,7 +97,11 @@ const ReasonScreen = props => {
     //   );
 
     //   if (response.data.status === 201) {
-        
+    //     Alert.alert('Info',
+    //      'Record saved successfully',
+    //      { text: 'OK', onPress: () => props.navigation.navigate('HomeStack', { screen: 'AttendanceTab' }) },
+    //      { cancelable: false }
+    //    );
     //   }
     // } catch (err) {
     //   console.log(err);
