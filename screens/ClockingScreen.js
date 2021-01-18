@@ -19,6 +19,7 @@ import Greeting from '../components/Greeting';
 import * as locationActions from '../store/actions/location';
 
 import ENV from '../env';
+import DisplayDate from '../constants/DisplayDateFormat';
 
 const ClockingScreen = props => {
   const [isLoading, setIsLoading] = useState(true);
@@ -42,7 +43,7 @@ const ClockingScreen = props => {
   const getLastClockingHandler = useCallback(async () => {
     setIsLoading(true)
     try {
-      const response = await axios(`${ENV.serverUrl}/lastclocking`, {
+      const response = await axios.get(`${ENV.serverUrl}/lastclocking`, {
         headers: { "Authorization": `Bearer ${token}` }
       });
 
@@ -104,7 +105,7 @@ const ClockingScreen = props => {
           <Text style={styles.label}>Your previous clocking was: </Text>
         </View>
         <View style={styles.infoContainer}>
-          <Text>{moment(lastClockingData.cDatetime).format('MMM D, YYYY h:mm a')}</Text>
+          <Text>{moment(lastClockingData.cDatetime).format(`${DisplayDate.default} h:mm a`)}</Text>
           <Text style={styles.label}>{ lastClockingData.cType === 1 ? '(IN)' : '(OUT)' }</Text>
         </View>
       </View>

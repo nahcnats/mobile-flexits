@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Modal, Button, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Modal, Button, StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
 import Colors from '../constants/Colors';

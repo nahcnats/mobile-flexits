@@ -16,7 +16,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Import constants
 import Colors from '../constants/Colors';
-import IconSize from '../constants/IconSize';
 
 // Import screens
 import AuthScreen from '../screens/AuthScreen';
@@ -163,7 +162,7 @@ const HomeNavigator = () => {
               (Platform.OS === 'android' ? 'md-list-circle-outline' : 'ios-list-circle')
           }
 
-          return <Ionicons name={iconName} size={IconSize.default} color={Colors.primary} />;
+          return <Ionicons name={iconName} size={36} color={Colors.primary} />;
         }
       })}
       tabBarOptions={{

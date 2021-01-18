@@ -2,8 +2,6 @@ import React from 'react';
 import { Platform, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-import IconSize from '../../constants/IconSize';
-
 const MapButton = props => {
   return (
     <TouchableOpacity
@@ -12,7 +10,7 @@ const MapButton = props => {
     >
       <Ionicons
         name={Platform.OS === 'android' ? 'md-location-sharp' : 'ios-location-sharp'}
-        size={IconSize.default} color='red'
+        size={36} color='red'
       />
     </TouchableOpacity>
   );
