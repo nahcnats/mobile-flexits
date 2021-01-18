@@ -17,7 +17,6 @@ The initial code of this project started with the bare workflow (using React Nat
     button is click and forwarded to Attendance screen. This is because if this screen is part of
     home stack, when user click the clocking tab, it just brings the user back to Reason screen, and
     hence my concern above.
--   Jan 18, 2021: Added Map Preview.
 
 ## Todos:
 
