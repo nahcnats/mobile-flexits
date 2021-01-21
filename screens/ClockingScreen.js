@@ -31,7 +31,6 @@ const ClockingScreen = props => {
 
   useEffect(() => {
     const unsubcribe = props.navigation.addListener('focus', () => {
-      console.log('ClockingScreen focused')
       getLastClockingHandler();
       getLocationHandler();
     });

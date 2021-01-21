@@ -3,6 +3,7 @@ import { View, Modal, Button, StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
 import Colors from '../constants/Colors';
+import CoordsDelta from '../constants/CoordsDelta';
 
 const MapPreview = props => {
   const toggleMap = () => {
@@ -12,8 +13,8 @@ const MapPreview = props => {
   const mapRegion = {
     latitude: props.location.coords.latitude,
     longitude: props.location.coords.longitude,
-    latitudeDelta: 0.001922,
-    longitudeDelta: 0.001421,
+    latitudeDelta: CoordsDelta.latitudeDelta,
+    longitudeDelta: CoordsDelta.longitudeDelta,
   }
 
   return (

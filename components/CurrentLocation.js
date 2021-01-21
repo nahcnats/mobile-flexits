@@ -17,8 +17,6 @@ const CurrentLocation = props => {
   }, []);
 
   const getAddress = useCallback(async () => {
-    console.log('getAddress');
-
     const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${locationCoords.coords.latitude},${locationCoords.coords.longitude}&key=${ENV.googleApiKey}`);
     const resData = await response.json();
     setAddress(resData.results[0].formatted_address);

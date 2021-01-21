@@ -17,12 +17,13 @@ The initial code of this project started with the bare workflow (using React Nat
     button is click and forwarded to Attendance screen. This is because if this screen is part of
     home stack, when user click the clocking tab, it just brings the user back to Reason screen, and
     hence my concern above.
+-   Jan 21, 2021: Attendance screen completed.
 
 ## Todos:
 
 -   Authentication screen.
     -   Forget password screen.
--   Attendance screen.
+-   Clocking screen: push clocking record to API.
 -   Settings screen.
 -   Change Password screen.
 
