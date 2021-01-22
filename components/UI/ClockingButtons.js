@@ -7,20 +7,20 @@ const ClockingButtons = props => {
       <View style={styles.titleContainer}><Text style={styles.label}>Select your clocking action</Text></View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          style={props.indicator == 1 ? styles.inBtnBig : styles.outBtnBig}
+          style={props.indicator === 1 ? styles.inBtnBig : styles.outBtnBig}
           onPress={() => {
             props.indicator === 1 ? props.onSelected(1) : props.onSelected(2)
           }}
         >
-          <Text style={styles.label}>IN</Text>  
+          <Text style={styles.label}>{props.indicator === 1 ? 'IN' : 'OUT'}</Text>  
         </TouchableOpacity>
         <TouchableOpacity
-          style={props.indicator == 1 ? styles.outBtnSmall : styles.inBtnSmall}
+          style={props.indicator === 1 ? styles.outBtnSmall : styles.inBtnSmall}
           onPress={() => {
             props.indicator === 1 ? props.onSelected(2) : props.onSelected(1)
           }}
         >
-          <Text style={styles.label}>OUT</Text>  
+          <Text style={styles.label}>{props.indicator === 1 ? 'OUT' : 'IN'}</Text>  
         </TouchableOpacity>
       </View>
     </View>

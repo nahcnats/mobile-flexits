@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import MapButton from '../components/UI/MapButton';
 import MapPreview from '../components/MapPreview';
+
+// Import redux action
+import * as locationActions from '../store/actions/location';
 
 import ENV from '../env';
 
@@ -12,6 +15,8 @@ const CurrentLocation = props => {
   const [toggleMap, setToggleMap] = useState(false);
   const locationCoords = useSelector(state => state.location.location);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     getAddress();
   }, []);
@@ -19,7 +24,15 @@ const CurrentLocation = props => {
   const getAddress = useCallback(async () => {
     const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${locationCoords.coords.latitude},${locationCoords.coords.longitude}&key=${ENV.googleApiKey}`);
     const resData = await response.json();
-    setAddress(resData.results[0].formatted_address);
+
+    if (resData.results[0].formatted_address) {
+      setAddress(resData.results[0].formatted_address);
+
+      dispatch(locationActions.setAddress(resData.results[0].formatted_address));
+    }
+    
+
+
   }, [getAddress]);
 
   const CurrentAddress = () => {

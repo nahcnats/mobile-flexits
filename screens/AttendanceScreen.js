@@ -4,7 +4,8 @@ import {
   View,
   FlatList,
   TouchableOpacity,
-  StyleSheet
+  StyleSheet,
+  Alert
 } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import { useSelector } from 'react-redux';
@@ -13,7 +14,6 @@ import axios from 'axios';
 
 import HeaderMenuButton from '../components/UI/HeaderMenuButton';
 import HeaderLogoutButton from '../components/UI/HeaderLogoutButton';
-import Loader from '../components/UI/Loader';
 import MapButton from '../components/UI/MapButton';
 import MapPreview from '../components/MapPreview';
 
@@ -25,7 +25,7 @@ const AttendanceScreen = props => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRefresh, setIsRefresh] = useState(false);
   const [toggleMap, setToggleMap] = useState(false);
-  const [dateSelected, setDateSelected] = useState();
+  const [dateSelected, setDateSelected] = useState(moment().format('YYYY-MM-DD'));
   const [attendances, setAttendances] = useState([]);
   const [currentLimit, setCurentLimit] = useState(10);
   const [currentPage, setCurrentPage] = useState(0);
@@ -33,17 +33,16 @@ const AttendanceScreen = props => {
 
   useEffect(() => {
     const unsubscribe = props.navigation.addListener('focus', () => {
-      console.log('AttendanceScreen focused');
-
       setDateSelected(Date.now());
-      setIsLoading(true);
-      fetchAttendanceHandler(moment().format('YYYY-MM-DD'));
+      fetchAttendanceHandler(dateSelected);
     });
 
     return unsubscribe;
   }, [props.navigation]);
 
   const fetchAttendanceHandler = useCallback(async (dtString) => {
+    setIsLoading(true);
+
     try {
       const payload = {
         limit: currentLimit,
@@ -99,15 +98,20 @@ const AttendanceScreen = props => {
 
     } catch (err) {
       setIsLoading(false);
-      console.log(err);
+      Alert.alert(
+        'Error!',
+        `An error occured while fetching data. ${err.message}`,
+        [{ text: 'OK' }]
+      );
     }
   }, [fetchAttendanceHandler, currentPage]);
 
   const fetchMore = async () => {
-    console.log('fetchMore')
-    setIsLoading(true);
-    setCurrentPage(currentPage + 1);
-    fetchAttendanceHandler();
+    if (!isLoading) {
+      setIsLoading(true);
+      setCurrentPage(currentPage + 1);
+      fetchAttendanceHandler(dateSelected);  
+    }
   }
 
   const prevDateHandler = () => {
@@ -200,27 +204,38 @@ const AttendanceScreen = props => {
     );
   } 
 
-  const renderFooter = () => (
-    isLoading ? <View style={{ paddingVertical: 20, }}>
-      <Loader label='Loading...' size='large' loading={isLoading} />
-    </View> : null
+  const RenderNoData = () => (
+    <View style={styles.center}><Text style={styles.text}>No data</Text></View>
   );
+
+  const FlatListItemSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          width: "100%",
+          backgroundColor: "#404040",
+        }}
+      />
+    );
+  }
 
   return (
     <View style={styles.container}>
       <DateSelector />
-      <View style={{ width: '98%', height: '90%'}}>
-        <FlatList
-          data={attendances}
-          keyExtractor={(item, index) => index.toString()}
-            renderItem={attendances ? renderItem : (
-                <View><Text>No data</Text></View>
-            )}
-          ListFooterComponent={renderFooter}
-          onEndReached={fetchMore}
-          onEndReachedThreshold={0}
-          initialNumToRender={currentLimit}
-        />
+      <View style={{ width: '98%', height: '90%' }}>
+        {
+          attendances.length === 0 ? <RenderNoData /> :
+            <FlatList
+              data={attendances}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={renderItem}
+              ItemSeparatorComponent={FlatListItemSeparator}
+              onEndReached={fetchMore}
+              onEndReachedThreshold={0}
+              initialNumToRender={currentLimit}
+            />
+        }
       </View>
     </View>
   );
@@ -246,6 +261,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white'
+  },
+  center: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%'
   },
   dateAction: {
     flexDirection: 'row',

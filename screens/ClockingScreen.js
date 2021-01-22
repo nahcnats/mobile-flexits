@@ -86,11 +86,13 @@ const ClockingScreen = props => {
     setIsLocation(false);
 
     try {
-      const location = await Location.getCurrentPositionAsync({ timeout: 500 });
+      const location = await Location.getCurrentPositionAsync({ timeout: 5000 });
 
-      dispatch(locationActions.setLocation(location));
-      setIsLocation(true);
-
+      if (location) {
+        dispatch(locationActions.setLocation(location));
+        setIsLocation(true);  
+      }
+      
     } catch (err) {
       Alert.alert(
         'Could not fetch location!',
