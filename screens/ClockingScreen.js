@@ -47,7 +47,11 @@ const ClockingScreen = props => {
       });
 
       if (response.status == 200) {
-        setLastClockingData({ cType: response.data.rec[0].ctype, cDatetime: response.data.rec[0].cdatetime })
+        if (response.data.rec.length > 0) {
+          setLastClockingData({ cType: response.data.rec[0].ctype, cDatetime: response.data.rec[0].cdatetime });
+        } else {
+          setLastClockingData({ cType: 2, cDatetime: Date.now() })
+        }
       }
       
       setIsLoading(false);
