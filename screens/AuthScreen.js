@@ -100,7 +100,6 @@ const AuthScreen = props => {
         formState.inputValues.password)
       );
     } catch (err) {
-      console.log(err);
       setError(err.message);
       setIsLoading(false);
     }
@@ -140,7 +139,7 @@ const AuthScreen = props => {
             />
             <View style={styles.buttonContainer}>
               <Button title='Login' color={Colors.primary} onPress={authHandler} />
-                <Button title='Forgot Password' color={Colors.accent} onPress={() => {
+              <Button title='Forgot Password' color={Colors.accent} onPress={() => {
                   props.navigation.navigate('ForgotPassword')
               }} />
             </View>

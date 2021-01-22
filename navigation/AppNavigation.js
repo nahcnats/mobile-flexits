@@ -24,7 +24,6 @@ import ClockingScreen, { clockingScreenOptions } from '../screens/ClockingScreen
 import ReasonScreen, { reasonScreenOptions } from '../screens/ReasonScreen';
 import AttendanceScreen, { attendanceScreenOptions } from '../screens/AttendanceScreen';
 import ChangePasswordScreen, { changePasswordScreenOptions } from '../screens/ChangePasswordScreen';
-import SettingsScreen, { settingsScreenOptions } from '../screens/SettingsScreen';
 
 // Import redux actions
 import * as authActions from '../store/actions/auth';
@@ -108,21 +107,6 @@ const ChangePasswordNavigator = () => {
         name='ChangePassword'
         component={ChangePasswordScreen}
         options={changePasswordScreenOptions}
-      />
-    </Stack.Navigator>
-  )
-}
-
-// SettingsNavigator as stack
-const SettingsNavigator = () => {
-  return (
-    <Stack.Navigator
-      screenOptions={defaultNavOptions}
-    >
-      <Stack.Screen
-        name='Settings'
-        component={SettingsScreen}
-        options={settingsScreenOptions}
       />
     </Stack.Navigator>
   )
@@ -247,12 +231,10 @@ const AppNavigator = () => {
       <Drawer.Screen
         name='ChangePasswordStack'
         component={ChangePasswordNavigator}
-        options={{ drawerLabel: 'Change Password'}}
-      />
-      <Drawer.Screen
-        name='SettingsStack'
-        component={SettingsNavigator}
-        options={{ drawerLabel: 'Settings'}}
+        options={{
+          drawerLabel: 'Change Password',
+          unmountOnBlur:true
+        }}
       />
       <Drawer.Screen
         name='ReasonStack'

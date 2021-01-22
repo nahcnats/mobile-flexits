@@ -18,15 +18,10 @@ The initial code of this project started with the bare workflow (using React Nat
     home stack, when user click the clocking tab, it just brings the user back to Reason screen, and
     hence my concern above.
 -   Jan 21, 2021: Attendance screen completed.
--   Jan 22, 2022: Push clocking record to API completed.
-
-## Todos:
-
--   Authentication screen.
-    -   Forget password screen.
--   Clocking screen: push clocking record to API.
--   Settings screen.
--   Change Password screen.
+-   Jan 22, 2022:
+    -   Push clocking record to API completed.
+    -   Change Password screen completed.
+    -   Forget password screen completed.
 
 # Installation
 

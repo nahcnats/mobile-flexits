@@ -12,7 +12,6 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 import LoaderModal from '../components/UI/LoaderModal';
-import Loader from '../components/UI/Loader';
 import HeaderCustomBackButton from '../components/UI/HeaderCustomBackButton';
 
 import Colors from '../constants/Colors';
