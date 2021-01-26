@@ -116,6 +116,7 @@ console.log('fetchAttendanceHandler', response.data.rec.length, dtString)
 
   const prevDateHandler = () => {
     let prevDate = moment(dateSelected).subtract(1, 'days');
+    setCurrentPage(0);
     setDateSelected(prevDate);
     setAttendances([]);
     setIsLoading(true);
@@ -124,6 +125,7 @@ console.log('fetchAttendanceHandler', response.data.rec.length, dtString)
 
   const nextDateHandler = () => {
     let nextDate = moment(dateSelected).add(1, 'days');
+    setCurrentPage(0);
     setDateSelected(nextDate);
     setAttendances([]);
     setIsLoading(true);
