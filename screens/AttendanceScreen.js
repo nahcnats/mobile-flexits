@@ -56,7 +56,7 @@ const AttendanceScreen = props => {
           headers: { "Authorization": `Bearer ${token}` }
         }
       );
-
+console.log('fetchAttendanceHandler', response.data.rec.length, dtString)
       if (!response.data.rec.length) {
         setIsLoading(false);
         return;
@@ -104,7 +104,7 @@ const AttendanceScreen = props => {
         [{ text: 'OK' }]
       );
     }
-  }, [fetchAttendanceHandler, currentPage]);
+  }, [fetchAttendanceHandler]);
 
   const fetchMore = async () => {
     if (!isLoading) {
