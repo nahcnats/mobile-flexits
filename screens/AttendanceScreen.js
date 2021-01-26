@@ -34,6 +34,7 @@ const AttendanceScreen = props => {
   useEffect(() => {
     const unsubscribe = props.navigation.addListener('focus', () => {
       setDateSelected(Date.now());
+      setIsLoading(true);
       fetchAttendanceHandler(dateSelected);
     });
 
@@ -41,8 +42,6 @@ const AttendanceScreen = props => {
   }, [props.navigation]);
 
   const fetchAttendanceHandler = useCallback(async (dtString) => {
-    setIsLoading(true);
-
     try {
       const payload = {
         limit: currentLimit,
@@ -56,7 +55,7 @@ const AttendanceScreen = props => {
           headers: { "Authorization": `Bearer ${token}` }
         }
       );
-console.log('fetchAttendanceHandler', response.data.rec.length, dtString)
+
       if (!response.data.rec.length) {
         setIsLoading(false);
         return;
@@ -104,9 +103,9 @@ console.log('fetchAttendanceHandler', response.data.rec.length, dtString)
         [{ text: 'OK' }]
       );
     }
-  }, [fetchAttendanceHandler]);
+  }, [fetchAttendanceHandler, currentPage]);
 
-  const fetchMore = async () => {
+  const fetchMore = () => {
     if (!isLoading) {
       setIsLoading(true);
       setCurrentPage(currentPage + 1);
@@ -229,6 +228,7 @@ console.log('fetchAttendanceHandler', response.data.rec.length, dtString)
         {
           attendances.length === 0 ? <RenderNoData /> :
             <FlatList
+              
               data={attendances}
               keyExtractor={(item, index) => index.toString()}
               renderItem={renderItem}
@@ -270,9 +270,11 @@ const styles = StyleSheet.create({
     height: '100%'
   },
   dateAction: {
+    top: 10,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    paddingVertical: 15
+    paddingVertical: 30,
+    backgroundColor: 'white'
   },
   text: {
     fontFamily: 'open-sans'
