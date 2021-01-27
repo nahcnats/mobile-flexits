@@ -6,7 +6,7 @@ The initial code of this project started with the bare workflow (using React Nat
 
 # Screenshots
 
-![Login screen](https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot01.png "Login screen")
+![Login screen](https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot01.png "Login screen"){ width=50% }
 ![Forgot Password screen](https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot02.png "Forgot Password screen")
 ![Clocking screen](https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot03.png "Clocking screen")
 ![Clocking Reason screen](https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot04.png "Clocking Reason screen")
