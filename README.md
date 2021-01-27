@@ -4,6 +4,8 @@ A hobby project that I started in November 2020. It is a rewrite of the original
 
 The initial code of this project started with the bare workflow (using React Native CLI) like the original app. I decided to try Expo and rewrote what I've wrote initial for ease of testing using Expo's services. This app UI is different from the original's.
 
+Please [contact me](mailto:nahcnats@gmail.com) if you want to try the demo as I use Google's services for this [app](https://expo.io/@nahcnats/projects/mobile-flexits). 
+
 ### Screenshots
 
 <div align="center">
