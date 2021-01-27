@@ -1,4 +1,4 @@
-# Mobile FlexIts
+# Mobile FlexiTs
 
 A hobby project that I started in November 2020. It is a rewrite of the original app I developed for Transact2 Sdn. Bhd. named Transact2 ClockIT, which is available in both Google Play and Apple Store. I do not have the original's source code due to legal bindings after I left the company in August 2020.
 
