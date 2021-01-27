@@ -9,6 +9,14 @@ The initial code of this project started with the bare workflow (using React Nat
   <div style="display: flex; align-items: flex-start;">
     <img src="https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot01.png" width="30%"/>
     <img src="https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot02.png" width="30%"/>
+    <img src="https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot03.png" width="30%"/>
+    <img src="https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot04.png" width="30%"/>
+    <img src="https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot05.png" width="30%"/>
+    <img src="https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot06.png" width="30%"/>
+    <img src="https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot07.png" width="30%"/>
+    <img src="https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot08.png" width="30%"/>
+    <img src="https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot09.png" width="30%"/>
+    <img src="https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot10.png" width="30%"/>
   </div>
 </div>
 # Installation
