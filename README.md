@@ -4,24 +4,17 @@ A hobby project that I started in November 2020. It is a rewrite of the original
 
 The initial code of this project started with the bare workflow (using React Native CLI) like the original app. I decided to try Expo and rewrote what I've wrote initial for ease of testing using Expo's services. This app UI is different from the original's.
 
-## Timeline
+# Screenshots
 
--   Nov 11, 2020: Initialization of the project.
--   Dec 14, 2020: Last edit for the React Native CLI version.
--   Jan 6, 2021: Initialization of the project using Expo.
--   Jan 9, 2021: Impletemented geolocation for the main clocking screen.
--   Jan 10, 2021: Authentication screen completed.
--   Jan 10 - 13, 2021: Clean up clocking screen and fixed indefinte looping issue.
--   Jan 14, 2021: Relocate Reason screen as its own stack instead of part of the home stack.
-    Reason being, to stop users from accidently submitting another transaction after the finish
-    button is click and forwarded to Attendance screen. This is because if this screen is part of
-    home stack, when user click the clocking tab, it just brings the user back to Reason screen, and
-    hence my concern above.
--   Jan 21, 2021: Attendance screen completed.
--   Jan 22, 2022:
-    -   Push clocking record to API completed.
-    -   Change Password screen completed.
-    -   Forget password screen completed.
+![Login screen](https://github.com/nahcnats/screenshots/Screenshot01.png "Login screen")
+![Forgot Password screen](https://github.com/nahcnats/screenshots/Screenshot02.png "Forgot Password screen")
+![Clocking screen](https://github.com/nahcnats/screenshots/Screenshot03.png "Clocking screen")
+![Clocking Reason screen](https://github.com/nahcnats/screenshots/Screenshot04.png "Clocking Reason screen")
+![Attendance screen](https://github.com/nahcnats/screenshots/Screenshot05.png "Attendance screen")
+![Attendance screen 2](https://github.com/nahcnats/screenshots/Screenshot06.png "Attendance screen 2")
+![Attendance screen 3](https://github.com/nahcnats/screenshots/Screenshot07.png "Attendance screen 3")
+![Map Preview](https://github.com/nahcnats/screenshots/Screenshot08.png "Map Preview 3")
+![Change Password screen](https://github.com/nahcnats/screenshots/Screenshot10.png "Change Password screen")
 
 # Installation
 
