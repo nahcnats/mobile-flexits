@@ -6,15 +6,16 @@ The initial code of this project started with the bare workflow (using React Nat
 
 # Screenshots
 
-<img alt="Login screen" src="https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot01.png" width="50%" />
-![Forgot Password screen](https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot02.png "Forgot Password screen")
-![Clocking screen](https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot03.png "Clocking screen")
-![Clocking Reason screen](https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot04.png "Clocking Reason screen")
-![Attendance screen](https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot05.png "Attendance screen")
-![Attendance screen 2](https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot06.png "Attendance screen 2")
-![Attendance screen 3](https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot07.png "Attendance screen 3")
-![Map Preview](https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot08.png "Map Preview 3")
-![Change Password screen](https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot10.png "Change Password screen")
+<img alt="Login screen" src="https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot01.png" width="30%" />
+<img alt="Forgot Password screen" src="https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot02.png" width="30%" />
+<img alt="Clocking screen" src="https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot03.png" width="30%" />
+<img alt="Clocking Reason screen" src="https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot04.png" width="30%" />
+<img alt="Attendance screen" src="https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot05.png" width="30%" />
+<img alt="Attendance screen 2" src="https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot06.png" width="30%" />
+<img alt="Attendance screen 3" src="https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot07.png" width="30%" />
+<img alt="Map Preview screen" src="https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot08.png" width="30%" />
+<img alt="Menu" src="https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot09.png" width="30%" />
+<img alt="Change Password screen" src="https://github.com/nahcnats/screenshots/blob/main/flexits/mobile_flexits/Screenshot10.png" width="30%" />
 
 # Installation
 
