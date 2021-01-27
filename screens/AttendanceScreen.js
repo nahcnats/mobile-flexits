@@ -15,6 +15,7 @@ import axios from 'axios';
 import HeaderMenuButton from '../components/UI/HeaderMenuButton';
 import HeaderLogoutButton from '../components/UI/HeaderLogoutButton';
 import MapButton from '../components/UI/MapButton';
+import Loader from '../components/UI/Loader';
 import MapPreview from '../components/MapPreview';
 
 import Colors from '../constants/Colors';
@@ -22,7 +23,7 @@ import DisplayDate from '../constants/DisplayDateFormat';
 import ENV from '../env';
 
 const AttendanceScreen = props => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isRefresh, setIsRefresh] = useState(false);
   const [toggleMap, setToggleMap] = useState(false);
   const [dateSelected, setDateSelected] = useState(moment().format('YYYY-MM-DD'));
@@ -31,22 +32,22 @@ const AttendanceScreen = props => {
   const [currentPage, setCurrentPage] = useState(0);
   const token = useSelector(state => state.auth.token);
 
+
   useEffect(() => {
-    const unsubscribe = props.navigation.addListener('focus', () => {
-      setDateSelected(Date.now());
-      setIsLoading(true);
-      fetchAttendanceHandler(dateSelected);
-    });
+    setIsLoading(true);
+    fetchAttendanceHandler();
 
-    return unsubscribe;
-  }, [props.navigation]);
+    return () => {
+      // unmount
+    }
+  }, [dateSelected, currentPage]); // Dependencies: Trigger only if dateSelected and currentPage has changed.
 
-  const fetchAttendanceHandler = useCallback(async (dtString) => {
+  const fetchAttendanceHandler = async () => {
     try {
       const payload = {
         limit: currentLimit,
         page: currentPage,
-        dt: dtString,
+        dt: dateSelected,
       }
 
       const response = await axios.post(`${ENV.serverUrl}/userclocking`,
@@ -56,7 +57,7 @@ const AttendanceScreen = props => {
         }
       );
 
-      if (!response.data.rec.length) {
+      if (response.data.rec.length === 0) {
         setIsLoading(false);
         return;
       }
@@ -103,32 +104,33 @@ const AttendanceScreen = props => {
         [{ text: 'OK' }]
       );
     }
-  }, [fetchAttendanceHandler, currentPage]);
+  };
 
   const fetchMore = () => {
-    if (!isLoading) {
-      setIsLoading(true);
-      setCurrentPage(currentPage + 1);
-      fetchAttendanceHandler(dateSelected);  
+    if (isLoading) {
+      return;
     }
+
+    setIsLoading(true);
+    setCurrentPage(currentPage + 1);
   }
 
   const prevDateHandler = () => {
-    let prevDate = moment(dateSelected).subtract(1, 'days');
-    setCurrentPage(0);
+    let prevDate = moment(dateSelected).subtract(1, 'days').format('YYYY-MM-DD');
+    setIsLoading(true);
     setDateSelected(prevDate);
     setAttendances([]);
-    setIsLoading(true);
-    fetchAttendanceHandler(moment(prevDate).format('YYYY-MM-DD'));
+    setCurrentPage(0);
+    // fetchAttendanceHandler();
   }
 
   const nextDateHandler = () => {
-    let nextDate = moment(dateSelected).add(1, 'days');
-    setCurrentPage(0);
+    let nextDate = moment(dateSelected).add(1, 'days').format('YYYY-MM-DD');
+    setIsLoading(true);
     setDateSelected(nextDate);
     setAttendances([]);
-    setIsLoading(true);
-    fetchAttendanceHandler(moment(nextDate).format('YYYY-MM-DD'));
+    setCurrentPage(0);
+    // fetchAttendanceHandler();
   }
 
   const DateSelector = () => {
@@ -138,18 +140,18 @@ const AttendanceScreen = props => {
           <TouchableOpacity onPress={prevDateHandler}>
             <Entypo
               name='chevron-left'
-              size={24} color={Colors.primary}
+              size={34} color={Colors.primary}
             />
           </TouchableOpacity>
         </View>
-        <Text>{moment(dateSelected).format(DisplayDate.default)}</Text>
+        <Text style={styles.text}>{moment(dateSelected).format(DisplayDate.default)}</Text>
         <View style={styles.buttonContainer}>
         {
           moment(dateSelected).format('YYYY-MM-DD') === moment().format('YYYY-MM-DD') ? null :
             <TouchableOpacity onPress={nextDateHandler}>
               <Entypo
                 name='chevron-right'
-                size={24} color={Colors.primary}
+                size={34} color={Colors.primary}
               />
             </TouchableOpacity>
           }
@@ -205,7 +207,8 @@ const AttendanceScreen = props => {
     );
   } 
 
-  const RenderNoData = () => (
+  const NoData = () => (
+    isLoading ? <View style={styles.center}><Loader loading={isLoading} size='large' label='Fetching data...' /></View> :
     <View style={styles.center}><Text style={styles.text}>No data</Text></View>
   );
 
@@ -224,21 +227,20 @@ const AttendanceScreen = props => {
   return (
     <View style={styles.container}>
       <DateSelector />
-      <View style={{ width: '98%', height: '90%' }}>
-        {
-          attendances.length === 0 ? <RenderNoData /> :
-            <FlatList
-              
-              data={attendances}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={renderItem}
-              ItemSeparatorComponent={FlatListItemSeparator}
-              onEndReached={fetchMore}
-              onEndReachedThreshold={0}
-              initialNumToRender={currentLimit}
-            />
-        }
-      </View>
+      {/* <LoaderModal loading={isLoading} label='Fetching data...' /> */}
+      {
+        attendances.length === 0 ? <NoData /> :
+          <FlatList
+            data={attendances}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={renderItem}
+            ItemSeparatorComponent={FlatListItemSeparator}
+            initialNumToRender={currentLimit}
+            onEndReachedThreshold={0}
+            onEndReached={fetchMore}
+            style={{width: '98%', height: '93%'}}
+          />
+      }
     </View>
   );
 }
@@ -260,7 +262,6 @@ export const attendanceScreenOptions = navData => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white'
   },
@@ -270,10 +271,11 @@ const styles = StyleSheet.create({
     height: '100%'
   },
   dateAction: {
-    top: 10,
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    paddingVertical: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    top: 30,
+    paddingBottom: 50,
     backgroundColor: 'white'
   },
   text: {
@@ -283,7 +285,7 @@ const styles = StyleSheet.create({
     fontFamily: 'open-sans-bold'
   },
   buttonContainer: {
-    paddingHorizontal: 50
+    paddingHorizontal: 50,
 
   },
   itemContainer: {

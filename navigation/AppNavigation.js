@@ -182,13 +182,13 @@ const CustomDrawerContent = (filteredProps) => {
     <View style={{ flex: 1 }} >
       <DrawerContentScrollView {...filteredProps} >
         <DrawerItemList {...filteredProps} />
-          <DrawerItem
+          {/* <DrawerItem
             label='Logout'
             onPress={() => {
               filteredProps.navigation.toggleDrawer();
               dispatch(authActions.logout());
             }}
-          />
+          /> */}
       </DrawerContentScrollView>
     </View>
   );
